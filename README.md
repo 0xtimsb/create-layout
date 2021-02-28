@@ -1,1 +1,1 @@
-npx create-skeleton to make directory structure for your readme.
+npx create-directory-structure to make directory structure for your readme.
