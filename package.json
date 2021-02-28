@@ -1,10 +1,4 @@
 {
-  "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
-  "name": "folder-structure",
-  "scripts": {
-    "folder-structure": "node tasks/folder-structure.js"
-  }
+  "name": "create-directory-structure",
+  "version": "1.0.0"
 }
