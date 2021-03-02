@@ -59,6 +59,9 @@ export async function cli(args) {
     "dist",
     ".next",
     "out",
+    ".idea",
+    ".cache",
+    ".firebase"
   ];
   const content = print(targetDir, ignoreFolders);
   await makeFile(targetDir, "layout.md", content);
