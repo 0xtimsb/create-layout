@@ -10,6 +10,9 @@
     "bin/",
     "src/"
   ],
+  "scripts": {
+    "prettier": "npx prettier --write ."
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/smitbarmase/create-layout.git"
@@ -26,6 +29,8 @@
   "homepage": "https://github.com/smitbarmase/create-layout#readme",
   "dependencies": {
     "arg": "^5.0.0",
-    "esm": "^3.2.25"
+    "chalk": "^4.1.0",
+    "esm": "^3.2.25",
+    "prettier": "^2.2.1"
   }
 }
