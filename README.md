@@ -1,1 +1,1 @@
-npx create-directory-structure to make directory structure for your readme.
+`npx folder-structure.md` to make folder structure for your project.
