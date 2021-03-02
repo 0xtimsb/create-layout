@@ -1,4 +1,31 @@
 {
-  "name": "create-directory-structure",
-  "version": "1.0.0"
+  "name": "tree.md",
+  "version": "1.0.0",
+  "description": "Make tree.md for your project structure.",
+  "main": "bin/tree.js",
+  "bin": {
+    "tree.md": "bin/tree.js"
+  },
+  "files": [
+    "bin/",
+    "src/"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/smitbarmase/tree.md.git"
+  },
+  "keywords": [
+    "cli",
+    "tree.md"
+  ],
+  "author": "smitbarmase",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/smitbarmase/tree.md/issues"
+  },
+  "homepage": "https://github.com/smitbarmase/tree.md#readme",
+  "dependencies": {
+    "arg": "^5.0.0",
+    "esm": "^3.2.25"
+  }
 }
