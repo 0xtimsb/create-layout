@@ -1,6 +1,6 @@
 {
   "name": "create-layout",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Creates layout.md for your project layout.",
   "main": "bin/layout.js",
   "bin": {
