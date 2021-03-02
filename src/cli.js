@@ -1,5 +1,4 @@
 import arg from "arg";
-import { time } from "console";
 import fs from "fs";
 import path from "path";
 
@@ -37,9 +36,16 @@ const print = (dir, ignoreFolders, prefix = "") => {
   }
 };
 
+const makeMd = (dir, content) => {
+  fs.writeFile(dir, content, { flag: "a+" }, (err) => {
+    console.log(err);
+  });
+};
+
 export async function cli(args) {
   let options = parseArgumentsIntoOptions(args);
   const targetDir = path.resolve(process.cwd(), options.directory);
   const ignoreFolders = ["node_modules", ".git", "build", "dir", "dist"];
   print(targetDir, ignoreFolders);
+  makeMd(targetDir, "Hello Peps!");
 }
