@@ -51,7 +51,14 @@ const makeFile = async (targetDir, fileName, content) => {
 export async function cli(args) {
   let options = parseArgumentsIntoOptions(args);
   const targetDir = path.resolve(process.cwd(), options.directory);
-  const ignoreFolders = ["node_modules", ".git", "build", "dir", "dist"];
+  const ignoreFolders = [
+    "node_modules",
+    ".git",
+    "build",
+    "dir",
+    "dist",
+    ".next",
+  ];
   const content = print(targetDir, ignoreFolders);
   await makeFile(targetDir, "layout.md", content);
   console.log(
