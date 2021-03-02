@@ -1,5 +1,5 @@
 {
-  "name": "folder-structure",
+  "name": "folder-structure.md",
   "version": "1.0.0",
   "description": "Make folder-structure.md for your project structure.",
   "main": "bin/folder-structure.js",
@@ -12,7 +12,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/smitbarmase/folder-structure.git"
+    "url": "git+https://github.com/smitbarmase/folder-structure.md.git"
   },
   "keywords": [
     "cli",
@@ -21,9 +21,9 @@
   "author": "smitbarmase",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/smitbarmase/folder-structure/issues"
+    "url": "https://github.com/smitbarmase/folder-structure.md/issues"
   },
-  "homepage": "https://github.com/smitbarmase/folder-structure#readme",
+  "homepage": "https://github.com/smitbarmase/folder-structure.md#readme",
   "dependencies": {
     "arg": "^5.0.0",
     "esm": "^3.2.25"
