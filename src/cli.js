@@ -25,11 +25,12 @@ const print = (dir, ignoreFolders, prefix = "") => {
     const child = children[i];
     const childPath = path.resolve(dir, child);
     const isFile = fs.statSync(childPath).isFile();
-    console.log(prefix + "|-" + child);
+    const connector = children.length - 1 === i ? "└─" : "├─";
+    console.log(prefix + connector + child);
     if (!isFile) {
       const ignore = ignoreFolders.includes(child);
       if (!ignore) {
-        const indent = children.length - 1 === i ? " " : "| ";
+        const indent = children.length - 1 === i ? "  " : "│ ";
         print(childPath, ignoreFolders, prefix + indent);
       }
     }
