@@ -58,6 +58,7 @@ export async function cli(args) {
     "dir",
     "dist",
     ".next",
+    "out",
   ];
   const content = print(targetDir, ignoreFolders);
   await makeFile(targetDir, "layout.md", content);
