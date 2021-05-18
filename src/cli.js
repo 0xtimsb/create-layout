@@ -9,8 +9,10 @@ const write = promisify(fs.writeFile);
 function parseArgumentsIntoOptions(rawArgs) {
   const args = arg(
     {
-      //   "--limit": String,
-      //   "-l": "--limit",
+      "--bullet": Boolean,
+      "-b": "--bullet",
+      "--numbered": Boolean,
+      "-n": "--numbered",
     },
     {
       argv: rawArgs.slice(2),
@@ -18,11 +20,12 @@ function parseArgumentsIntoOptions(rawArgs) {
   );
   return {
     directory: args._[0] || "",
-    //  limit: args["--limit"] || 12,
+    bullet: args["--bullet"] || false,
+    numbered: args["--numbered"] || false,
   };
 }
 
-const print = (targetDir, ignoreFolders, prefix = "") => {
+const printTree = (targetDir, ignoreFolders, prefix = "") => {
   let output = "";
   const children = fs.readdirSync(targetDir);
   for (let i = 0; i < children.length; i++) {
@@ -35,22 +38,63 @@ const print = (targetDir, ignoreFolders, prefix = "") => {
       const ignore = ignoreFolders.includes(child);
       if (!ignore) {
         const indent = children.length - 1 === i ? "  " : "│ ";
-        output += print(childPath, ignoreFolders, prefix + indent);
+        output += printTree(childPath, ignoreFolders, prefix + indent);
       }
     }
   }
   return output;
 };
 
-const makeFile = async (targetDir, fileName, content) => {
-  const writeDirectory = path.resolve(targetDir, fileName);
-  content = "```" + content + "\n```";
+const printBulletList = (targetDir, ignoreFolders, prefix = "") => {
+  let output = "";
+  const children = fs.readdirSync(targetDir);
+  for (let i = 0; i < children.length; i++) {
+    const child = children[i];
+    const childPath = path.resolve(targetDir, child);
+    const isFile = fs.statSync(childPath).isFile();
+    const connector = "- ";
+    output += "\n" + prefix + connector + child;
+    if (!isFile) {
+      const ignore = ignoreFolders.includes(child);
+      if (!ignore) {
+        output += printBulletList(childPath, ignoreFolders, prefix + "  ");
+      }
+    }
+  }
+  return output;
+};
+
+const printNumberedList = (targetDir, ignoreFolders, prefix = "") => {
+  let output = "";
+  const children = fs.readdirSync(targetDir);
+  for (let i = 0; i < children.length; i++) {
+    const child = children[i];
+    const childPath = path.resolve(targetDir, child);
+    const isFile = fs.statSync(childPath).isFile();
+    const connector = (i + 1) + '. ';
+    output += "\n" + prefix + connector + child;
+    if (!isFile) {
+      const ignore = ignoreFolders.includes(child);
+      if (!ignore) {
+        output += printNumberedList(childPath, ignoreFolders, prefix + "    ");
+      }
+    }
+  }
+  return output;
+};
+
+const makeFile = async (layoutDir, fileName, content, withCode) => {
+  const writeDirectory = path.resolve(layoutDir, fileName);
+  if (withCode) {
+    content = "```" + content + "\n```";
+  }
   await write(writeDirectory, content, { flag: "w" });
 };
 
 export async function cli(args) {
   let options = parseArgumentsIntoOptions(args);
-  const targetDir = path.resolve(process.cwd(), options.directory);
+  const layoutDir = path.resolve(process.cwd(), options.directory);
+  const targetDir = path.resolve(process.cwd());
   const ignoreFolders = [
     "node_modules",
     ".git",
@@ -63,8 +107,17 @@ export async function cli(args) {
     ".cache",
     ".firebase"
   ];
-  const content = print(targetDir, ignoreFolders);
-  await makeFile(targetDir, "layout.md", content);
+
+  let content;
+  if (options.bullet) {
+    content = printBulletList(layoutDir, ignoreFolders);
+  } else if (options.numbered) {
+    content = printNumberedList(layoutDir, ignoreFolders);
+  } else {
+    content = printTree(targetDir, ignoreFolders);
+  }
+  const isCode = !(options.bullet || options.numbered);
+  await makeFile(targetDir, "layout.md", content, isCode);
   console.log(
     chalk.green.bold("layout.md"),
     "created at",

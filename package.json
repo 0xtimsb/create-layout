@@ -2,9 +2,9 @@
   "name": "create-layout",
   "version": "1.0.4",
   "description": "Creates layout.md for your project layout.",
-  "main": "bin/layout.js",
+  "main": "bin/create-layout.js",
   "bin": {
-    "tree.md": "bin/layout.js"
+    "create-layout": "bin/create-layout.js"
   },
   "files": [
     "bin/",
