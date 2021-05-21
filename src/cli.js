@@ -83,8 +83,8 @@ const printNumberedList = (targetDir, ignoreFolders, prefix = "") => {
   return output;
 };
 
-const makeFile = async (layoutDir, fileName, content, withCode) => {
-  const writeDirectory = path.resolve(layoutDir, fileName);
+const makeFile = async (targetDir, fileName, content, withCode) => {
+  const writeDirectory = path.resolve(targetDir, fileName);
   if (withCode) {
     content = "```" + content + "\n```";
   }
@@ -114,7 +114,7 @@ export async function cli(args) {
   } else if (options.numbered) {
     content = printNumberedList(layoutDir, ignoreFolders);
   } else {
-    content = printTree(targetDir, ignoreFolders);
+    content = printTree(layoutDir, ignoreFolders);
   }
   const isCode = !(options.bullet || options.numbered);
   await makeFile(targetDir, "layout.md", content, isCode);
