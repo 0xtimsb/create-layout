@@ -29,7 +29,7 @@
   "homepage": "https://github.com/smitbarmase/create-layout#readme",
   "dependencies": {
     "arg": "^5.0.0",
-    "chalk": "^4.1.0",
+    "chalk": "^5.0.1",
     "esm": "^3.2.25",
     "prettier": "^2.2.1"
   }
